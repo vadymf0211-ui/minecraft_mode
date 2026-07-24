@@ -8,6 +8,7 @@
 - **Захват блоков** — вырывай блок прямо из мира и таскай его с собой (земля, камень, руды, что угодно).
 - **Мощный бросок** — запусти удерживаемую цель по направлению взгляда. Брошенные мобы получают урон при ударе о стены и сбивают других мобов, летящие блоки калечат всё на своём пути.
 - **Аккуратная установка** — с шифтом цель мягко опускается на место: можно переносить блоки без разрушения и расставлять мобов как фигурки.
+- **Конвейерные ленты** — строй транспортные и сортировочные линии: лента с анимированными стрелками двигает мобов и предметы, держит их по центру дорожки, редстоун-сигнал ставит её на паузу, а крадущийся игрок может спокойно стоять.
 - Звуки, частицы и свечение удерживаемой цели прилагаются.
 
 ## Управление
@@ -27,6 +28,15 @@
 Р О А        Р — блок редстоуна
 Ж Ж Ж        О — око эндера,  А — алмаз
 ```
+
+**Конвейерная лента** (6 штук за крафт):
+
+```
+К К К        К — кожа
+Ж Р Ж        Ж — железный слиток,  Р — редстоун-пыль
+```
+
+Лента кладётся стрелками в сторону взгляда. Цепочка лент — готовая транспортная линия; в конце поставь воронку, и лут сам сложится в сундук.
 
 ## Установка
 
@@ -55,6 +65,8 @@ A **Fabric** mod for **Minecraft 1.21 / 1.21.1**: grab mobs and blocks, hold the
 **Controls:** right-click to grab whatever you're looking at (16 block range), right-click again to launch it, sneak + right-click to set it down gently. Launched mobs take crash damage and bowl over anything living on their path; launched blocks hurt whatever they land on.
 
 **Can't grab:** players, the Ender Dragon and the Wither, unbreakable blocks (bedrock) and blocks with inventories (chests, furnaces).
+
+**Conveyor Belts:** crafted from leather + iron + redstone (6 per craft). Belts move mobs and items along their animated arrows and keep cargo centred; a redstone signal pauses the belt, and sneaking players stay put.
 
 **Crafting (shaped, 3×3):** top and bottom rows — three iron ingots each; middle row — redstone block, eye of ender, diamond.
 

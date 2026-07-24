@@ -81,28 +81,41 @@ tasks.register('generateTextures') {
             }
         }
 
-        // 16x16 item sprite
-        def rows = new File(texSourceDir, 'gravity_gun.px').readLines().findAll { it.trim() }
-        int size = rows.size()
-        def img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB)
-        rows.eachWithIndex { row, y ->
-            row.toCharArray().eachWithIndex { ch, x ->
-                img.setRGB(x, y, (int) palette.getOrDefault(ch.toString(), 0))
+        // rasterise every sprite listed in the manifest (supports non-square
+        // maps, e.g. vertically stacked animation frames)
+        def iconSource = null
+        new File(texSourceDir, 'manifest.txt').eachLine { line ->
+            line = line.trim()
+            if (!line || line.startsWith('#')) return
+            def parts = line.split(/\s+/)
+            def rows = new File(texSourceDir, parts[0]).readLines().findAll { it.trim() }
+            int h = rows.size()
+            int w = rows[0].trim().length()
+            def img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
+            rows.eachWithIndex { row, y ->
+                for (int x = 0; x < w; x++) {
+                    img.setRGB(x, y, (int) palette.getOrDefault(row.charAt(x).toString(), 0))
+                }
+            }
+            def outFile = new File(texOutDir, 'assets/gravitygun/textures/' + parts[1])
+            outFile.parentFile.mkdirs()
+            ImageIO.write(img, 'png', outFile)
+            if (parts[1] == 'item/gravity_gun.png') {
+                iconSource = img
             }
         }
-        def itemDir = new File(texOutDir, 'assets/gravitygun/textures/item')
-        itemDir.mkdirs()
-        ImageIO.write(img, 'png', new File(itemDir, 'gravity_gun.png'))
 
-        // 128x128 mod icon (nearest-neighbour upscale)
-        int scale = (128).intdiv(size)
-        def icon = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB)
-        for (int y = 0; y < 128; y++) {
-            for (int x = 0; x < 128; x++) {
-                icon.setRGB(x, y, img.getRGB(x.intdiv(scale), y.intdiv(scale)))
+        // 128x128 mod icon (nearest-neighbour upscale of the gun sprite)
+        if (iconSource != null) {
+            int scale = (128).intdiv(iconSource.width)
+            def icon = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB)
+            for (int y = 0; y < 128; y++) {
+                for (int x = 0; x < 128; x++) {
+                    icon.setRGB(x, y, iconSource.getRGB(x.intdiv(scale), y.intdiv(scale)))
+                }
             }
+            ImageIO.write(icon, 'png', new File(texOutDir, 'assets/gravitygun/icon.png'))
         }
-        ImageIO.write(icon, 'png', new File(texOutDir, 'assets/gravitygun/icon.png'))
     }
 }
 

@@ -2,5 +2,8 @@
   "item.gravitygun.gravity_gun": "Гравітаційна гармата",
   "item.gravitygun.gravity_gun.tooltip.grab": "ПКМ: захопити моба або блок (дальність 16 блоків)",
   "item.gravitygun.gravity_gun.tooltip.launch": "ПКМ ще раз: потужний кидок",
-  "item.gravitygun.gravity_gun.tooltip.drop": "Шифт + ПКМ: обережно відпустити"
+  "item.gravitygun.gravity_gun.tooltip.drop": "Шифт + ПКМ: обережно відпустити",
+  "block.gravitygun.conveyor_belt": "Конвеєрна стрічка",
+  "block.gravitygun.conveyor_belt.tooltip1": "Рухає мобів і предмети за стрілками",
+  "block.gravitygun.conveyor_belt.tooltip2": "Редстоун ставить стрічку на паузу; крадькома можна стояти"
 }

@@ -27,6 +27,9 @@ PAL = {
     'u': (26, 127, 158, 255),   # cyan dark
     'H': (63, 50, 48, 255),     # grip dark
     'h': (99, 80, 74, 255),     # grip light
+    'B': (38, 40, 45, 255),     # belt rubber base
+    'b': (58, 61, 68, 255),     # belt seam
+    'E': (23, 24, 28, 255),     # belt edge
     '.': (0, 0, 0, 0),
 }
 CHAR_OF = {v: k for k, v in PAL.items()}

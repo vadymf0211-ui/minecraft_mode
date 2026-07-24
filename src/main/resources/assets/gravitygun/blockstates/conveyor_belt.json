@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "gravitygun:block/conveyor_belt" },
+    "facing=east": { "model": "gravitygun:block/conveyor_belt", "y": 90 },
+    "facing=south": { "model": "gravitygun:block/conveyor_belt", "y": 180 },
+    "facing=west": { "model": "gravitygun:block/conveyor_belt", "y": 270 }
+  }
+}

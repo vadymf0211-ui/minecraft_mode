@@ -2,5 +2,8 @@
   "item.gravitygun.gravity_gun": "Gravity Gun",
   "item.gravitygun.gravity_gun.tooltip.grab": "Right-click: grab a mob or block (16 block range)",
   "item.gravitygun.gravity_gun.tooltip.launch": "Right-click again: launch it",
-  "item.gravitygun.gravity_gun.tooltip.drop": "Sneak + right-click: set it down gently"
+  "item.gravitygun.gravity_gun.tooltip.drop": "Sneak + right-click: set it down gently",
+  "block.gravitygun.conveyor_belt": "Conveyor Belt",
+  "block.gravitygun.conveyor_belt.tooltip1": "Moves mobs and items along the arrows",
+  "block.gravitygun.conveyor_belt.tooltip2": "Redstone signal pauses the belt; sneak to stand still"
 }

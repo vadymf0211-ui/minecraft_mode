@@ -1,0 +1,4 @@
+# pixel map -> output path under assets/gravitygun/textures/
+gravity_gun.px item/gravity_gun.png
+conveyor_belt_top.px block/conveyor_belt_top.png
+conveyor_belt.px block/conveyor_belt.png

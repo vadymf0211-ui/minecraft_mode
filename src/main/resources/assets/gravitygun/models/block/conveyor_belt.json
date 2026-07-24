@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "gravitygun:block/conveyor_belt",
+    "top": "gravitygun:block/conveyor_belt_top",
+    "side": "gravitygun:block/conveyor_belt"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 2, 16],
+      "faces": {
+        "down": { "uv": [0, 0, 16, 16], "texture": "#side", "cullface": "down" },
+        "up": { "uv": [0, 0, 16, 16], "texture": "#top" },
+        "north": { "uv": [0, 14, 16, 16], "texture": "#side" },
+        "south": { "uv": [0, 14, 16, 16], "texture": "#side" },
+        "west": { "uv": [0, 14, 16, 16], "texture": "#side" },
+        "east": { "uv": [0, 14, 16, 16], "texture": "#side" }
+      }
+    }
+  ]
+}

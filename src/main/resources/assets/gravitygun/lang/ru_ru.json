@@ -2,5 +2,8 @@
   "item.gravitygun.gravity_gun": "Гравитационная пушка",
   "item.gravitygun.gravity_gun.tooltip.grab": "ПКМ: захватить моба или блок (дальность 16 блоков)",
   "item.gravitygun.gravity_gun.tooltip.launch": "ПКМ ещё раз: мощный бросок",
-  "item.gravitygun.gravity_gun.tooltip.drop": "Шифт + ПКМ: аккуратно отпустить"
+  "item.gravitygun.gravity_gun.tooltip.drop": "Шифт + ПКМ: аккуратно отпустить",
+  "block.gravitygun.conveyor_belt": "Конвейерная лента",
+  "block.gravitygun.conveyor_belt.tooltip1": "Двигает мобов и предметы по стрелкам",
+  "block.gravitygun.conveyor_belt.tooltip2": "Редстоун ставит ленту на паузу; крадучись можно стоять"
 }

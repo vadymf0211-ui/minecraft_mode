@@ -3,7 +3,7 @@
   "id": "gravitygun",
   "version": "${version}",
   "name": "Gravity Gun",
-  "description": "A physics-bending gravity gun: grab mobs and blocks, hold them in mid-air and hurl them with devastating force.",
+  "description": "A physics-bending gravity gun plus industrial conveyor belts: grab mobs and blocks, hurl them with devastating force, and automate the aftermath.",
   "authors": [
     "vadymf0211-ui"
   ],
