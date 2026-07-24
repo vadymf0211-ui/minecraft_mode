@@ -5,5 +5,12 @@
   "item.gravitygun.gravity_gun.tooltip.drop": "Sneak + right-click: set it down gently",
   "block.gravitygun.conveyor_belt": "Conveyor Belt",
   "block.gravitygun.conveyor_belt.tooltip1": "Moves mobs and items along the arrows",
-  "block.gravitygun.conveyor_belt.tooltip2": "Redstone signal pauses the belt; sneak to stand still"
+  "block.gravitygun.conveyor_belt.tooltip2": "Redstone pauses it; right-click with an item to load it",
+  "block.gravitygun.cardboard": "Cardboard",
+  "block.gravitygun.cardboard.tooltip": "Can be laid on the floor like a carpet",
+  "item.gravitygun.wet_cardboard": "Wet Cardboard",
+  "item.gravitygun.wet_cardboard.tooltip": "Soggy junk. For now.",
+  "block.gravitygun.cardboard_box": "Cardboard Box",
+  "block.gravitygun.cardboard_box.tooltip1": "14 slots; keeps its contents when broken",
+  "block.gravitygun.cardboard_box.tooltip2": "Falls apart in water — everything spills out!"
 }

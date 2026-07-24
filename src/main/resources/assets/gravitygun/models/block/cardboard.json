@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "particle": "gravitygun:block/cardboard",
+    "wool": "gravitygun:block/cardboard"
+  }
+}

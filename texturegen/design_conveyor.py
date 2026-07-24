@@ -19,6 +19,7 @@ COLORS = {
     'G': (78, 85, 96, 255),
     'L': (123, 132, 148, 255),
     'O': (255, 142, 31, 255),
+    'o': (194, 90, 10, 255),
     'Y': (255, 208, 138, 255),
     'B': (38, 40, 45, 255),
     'b': (58, 61, 68, 255),
@@ -56,12 +57,20 @@ for y in range(16):
         ch = 'G'
         if y in (0, 15) or x in (0, 15):
             ch = 'D'
-        if (x, y) in ((2, 2), (13, 2), (2, 11), (13, 11)):
-            ch = 'L'              # rivets
+        if (x, y) in ((2, 2), (13, 2), (2, 5), (13, 5)):
+            ch = 'L'              # rivets (bottom face)
+        if y == 8:
+            ch = 'E'              # rubber belt wrapping over the edge
+        if y == 9:
+            ch = 'D'              # top rail
+        if 10 <= y <= 13:
+            ch = 'D' if x in (0, 15) else 'G'
+            if y in (11, 12) and x % 4 in (1, 2):
+                ch = 'O' if (y == 11 and x % 4 == 1) else 'o'  # rollers
         if y == 14:
-            ch = 'D'              # frame rail (visible on side, top row)
+            ch = 'D'              # bottom rail
         if y == 15:
-            ch = 'O' if x % 4 == 0 else 'E'  # roller ends peeking out
+            ch = 'K'              # ground shadow
         row.append(ch)
     side_rows.append(''.join(row))
 

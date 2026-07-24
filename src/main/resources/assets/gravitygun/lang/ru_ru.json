@@ -5,5 +5,12 @@
   "item.gravitygun.gravity_gun.tooltip.drop": "Шифт + ПКМ: аккуратно отпустить",
   "block.gravitygun.conveyor_belt": "Конвейерная лента",
   "block.gravitygun.conveyor_belt.tooltip1": "Двигает мобов и предметы по стрелкам",
-  "block.gravitygun.conveyor_belt.tooltip2": "Редстоун ставит ленту на паузу; крадучись можно стоять"
+  "block.gravitygun.conveyor_belt.tooltip2": "Редстоун — пауза; ПКМ с предметом — положить его на ленту",
+  "block.gravitygun.cardboard": "Картон",
+  "block.gravitygun.cardboard.tooltip": "Можно постелить на пол как ковёр",
+  "item.gravitygun.wet_cardboard": "Мокрый картон",
+  "item.gravitygun.wet_cardboard.tooltip": "Мокрый бесполезный мусор. Пока что.",
+  "block.gravitygun.cardboard_box": "Картонная коробка",
+  "block.gravitygun.cardboard_box.tooltip1": "14 слотов; не теряет содержимое при переноске",
+  "block.gravitygun.cardboard_box.tooltip2": "Размокает в воде — всё выпадет наружу!"
 }

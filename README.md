@@ -8,7 +8,9 @@
 - **Захват блоков** — вырывай блок прямо из мира и таскай его с собой (земля, камень, руды, что угодно).
 - **Мощный бросок** — запусти удерживаемую цель по направлению взгляда. Брошенные мобы получают урон при ударе о стены и сбивают других мобов, летящие блоки калечат всё на своём пути.
 - **Аккуратная установка** — с шифтом цель мягко опускается на место: можно переносить блоки без разрушения и расставлять мобов как фигурки.
-- **Конвейерные ленты** — строй транспортные и сортировочные линии: лента с анимированными стрелками двигает мобов и предметы, держит их по центру дорожки, редстоун-сигнал ставит её на паузу, а крадущийся игрок может спокойно стоять.
+- **Конвейерные ленты** — полублок-дорожка с анимированными стрелками: двигает мобов, игроков и предметы, держит груз по центру линии. Редстоун-сигнал ставит ленту на паузу, крадущийся игрок может спокойно стоять, а ПКМ с предметом в руке кладёт его прямо на ленту — как в рамку.
+- **Картон** — крафтится из бумаги, стелется на пол как ковёр и служит материалом для коробок. Мокрый картон — просто мусор… пока что.
+- **Картонные коробки** — переносное хранилище на 14 слотов (половина шалкера): не теряет содержимое при переноске, как шалкер. Но боится воды: брось коробку в воду, зайди в воду с коробкой в руках или поставь её вплотную к воде — она размокнет, всё содержимое выпадет наружу, а от коробки останется лишь мокрый картон.
 - Звуки, частицы и свечение удерживаемой цели прилагаются.
 
 ## Управление
@@ -38,6 +40,10 @@
 
 Лента кладётся стрелками в сторону взгляда. Цепочка лент — готовая транспортная линия; в конце поставь воронку, и лут сам сложится в сундук.
 
+**Картон** (2 штуки за крафт): бумага квадратом 2×2.
+
+**Картонная коробка**: 8 листов картона по кругу, центр пустой.
+
 ## Установка
 
 1. Установи [Fabric Loader](https://fabricmc.net/use/) для Minecraft 1.21.1.
@@ -66,7 +72,9 @@ A **Fabric** mod for **Minecraft 1.21 / 1.21.1**: grab mobs and blocks, hold the
 
 **Can't grab:** players, the Ender Dragon and the Wither, unbreakable blocks (bedrock) and blocks with inventories (chests, furnaces).
 
-**Conveyor Belts:** crafted from leather + iron + redstone (6 per craft). Belts move mobs and items along their animated arrows and keep cargo centred; a redstone signal pauses the belt, and sneaking players stay put.
+**Conveyor Belts:** crafted from leather + iron + redstone (6 per craft). Half-slab belts move mobs and items along their animated arrows and keep cargo centred; a redstone signal pauses the belt, sneaking players stay put, and right-clicking a belt with any item loads it onto the line.
+
+**Cardboard:** craft from 2×2 paper; lay it down as a carpet or build **cardboard boxes** — portable 14-slot storage (half a shulker) that keeps its contents when broken. Boxes hate water: thrown into water, carried into water in hand, or placed next to water, a box soaks through, spills everything and leaves only wet cardboard behind.
 
 **Crafting (shaped, 3×3):** top and bottom rows — three iron ingots each; middle row — redstone block, eye of ender, diamond.
 

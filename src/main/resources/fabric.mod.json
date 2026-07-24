@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "com.vadym.gravitygun.GravityGunMod"
+    ],
+    "client": [
+      "com.vadym.gravitygun.client.GravityGunClient"
     ]
   },
   "depends": {

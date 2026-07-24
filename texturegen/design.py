@@ -30,6 +30,19 @@ PAL = {
     'B': (38, 40, 45, 255),     # belt rubber base
     'b': (58, 61, 68, 255),     # belt seam
     'E': (23, 24, 28, 255),     # belt edge
+    'P': (196, 154, 108, 255),  # cardboard base
+    'p': (154, 116, 72, 255),   # cardboard dark
+    'q': (219, 185, 138, 255),  # cardboard light
+    'w': (138, 111, 82, 255),   # wet cardboard base
+    'W': (105, 84, 64, 255),    # wet cardboard dark
+    'T': (222, 200, 130, 255),  # tape
+    't': (176, 154, 86, 255),   # tape dark
+    '0': (0, 0, 0, 255),        # gui outline
+    '1': (255, 255, 255, 255),  # gui bevel light
+    '2': (198, 198, 198, 255),  # gui panel
+    '3': (139, 139, 139, 255),  # gui slot fill
+    '4': (85, 85, 85, 255),     # gui bevel shade
+    '5': (55, 55, 55, 255),     # gui slot border dark
     '.': (0, 0, 0, 0),
 }
 CHAR_OF = {v: k for k, v in PAL.items()}

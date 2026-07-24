@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CCC",
+    "C C",
+    "CCC"
+  ],
+  "key": {
+    "C": { "item": "gravitygun:cardboard" }
+  },
+  "result": {
+    "id": "gravitygun:cardboard_box",
+    "count": 1
+  }
+}

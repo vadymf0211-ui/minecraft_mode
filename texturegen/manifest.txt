@@ -2,3 +2,9 @@
 gravity_gun.px item/gravity_gun.png
 conveyor_belt_top.px block/conveyor_belt_top.png
 conveyor_belt.px block/conveyor_belt.png
+cardboard.px block/cardboard.png
+wet_cardboard.px item/wet_cardboard.png
+cardboard_box_top.px block/cardboard_box_top.png
+cardboard_box_side.px block/cardboard_box_side.png
+cardboard_box_bottom.px block/cardboard_box_bottom.png
+cardboard_gui.px gui/container/cardboard_box.png

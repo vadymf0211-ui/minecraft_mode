@@ -6,8 +6,18 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -16,27 +26,32 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 /**
- * Conveyor belt: a thin powered track that pushes entities (mobs, items,
- * anything standing on it) toward its facing direction and keeps them
- * centred on the line.
+ * Conveyor belt: a half-slab powered track that pushes entities (mobs, items,
+ * players — anything riding on it) toward its facing direction and keeps the
+ * cargo centred on the line.
  *
  * - A redstone signal pauses the belt.
- * - Sneaking players are not moved (vanilla "bypasses stepping effects").
+ * - Right-clicking the belt with an item in hand places that item on the belt
+ *   (like an item frame), so it rides away.
+ * - Sneak + right-click to build blocks on/against the belt as usual.
  *
- * The push runs on both logical sides, exactly like vanilla motion blocks
- * (honey, bubble columns), so player movement stays smooth without any
- * extra velocity-sync packets.
+ * Movement uses {@code onEntityCollision}: entities standing on the half-tall
+ * belt always overlap its block space, so the hook fires every tick on both
+ * logical sides — the same mechanism as vanilla bubble columns, which keeps
+ * player motion smooth with zero extra networking. (The previous version used
+ * {@code onSteppedOn}, which vanilla only calls for the block half a block
+ * below the entity's feet — a thin belt never received it.)
  */
 public class ConveyorBeltBlock extends HorizontalFacingBlock {
     public static final MapCodec<ConveyorBeltBlock> CODEC = createCodec(ConveyorBeltBlock::new);
 
-    private static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
 
     /** Top speed along the belt, blocks per tick (~5.6 blocks per second). */
     private static final double MAX_SPEED = 0.28;
     /** Acceleration applied each tick until the target speed is reached. */
     private static final double ACCELERATION = 0.07;
-    /** How strongly entities are pulled toward the centre line of the belt. */
+    /** How strongly cargo is pulled toward the centre line of the belt. */
     private static final double CENTERING = 0.12;
 
     public ConveyorBeltBlock(Settings settings) {
@@ -65,17 +80,18 @@ public class ConveyorBeltBlock extends HorizontalFacingBlock {
     }
 
     @Override
-    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (!world.isReceivingRedstonePower(pos)) {
-            convey(pos, state, entity);
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        // Only move cargo that is actually riding the belt surface (top is at +0.5).
+        double rel = entity.getY() - pos.getY();
+        if (rel < 0.4 || rel > 0.75) {
+            return;
         }
-        super.onSteppedOn(world, pos, state, entity);
-    }
+        if (world.isReceivingRedstonePower(pos)) {
+            return; // paused by redstone
+        }
 
-    private static void convey(BlockPos pos, BlockState state, Entity entity) {
         Direction dir = state.get(FACING);
         Vec3d velocity = entity.getVelocity();
-
         double along = velocity.x * dir.getOffsetX() + velocity.z * dir.getOffsetZ();
         double boost = Math.min(ACCELERATION, Math.max(0.0, MAX_SPEED - along));
 
@@ -89,5 +105,29 @@ public class ConveyorBeltBlock extends HorizontalFacingBlock {
         }
 
         entity.addVelocity(dir.getOffsetX() * boost + centerX, 0.0, dir.getOffsetZ() * boost + centerZ);
+    }
+
+    @Override
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos,
+                                             PlayerEntity player, Hand hand, BlockHitResult hit) {
+        // Let belts (and empty hands) fall through to normal behaviour so lines are easy to build.
+        if (stack.isEmpty()
+                || (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ConveyorBeltBlock)) {
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (world instanceof ServerWorld serverWorld) {
+            ItemStack cargo = stack.copyWithCount(1);
+            if (!player.isCreative()) {
+                stack.decrement(1);
+            }
+            ItemEntity item = new ItemEntity(serverWorld,
+                    pos.getX() + 0.5, pos.getY() + 0.55, pos.getZ() + 0.5, cargo);
+            item.setVelocity(Vec3d.ZERO);
+            item.setPickupDelay(30);
+            serverWorld.spawnEntity(item);
+            serverWorld.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM,
+                    SoundCategory.BLOCKS, 0.8F, 1.0F);
+        }
+        return ItemActionResult.SUCCESS;
     }
 }
