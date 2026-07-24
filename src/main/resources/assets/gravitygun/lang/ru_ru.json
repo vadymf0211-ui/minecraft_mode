@@ -1,0 +1,6 @@
+{
+  "item.gravitygun.gravity_gun": "Гравитационная пушка",
+  "item.gravitygun.gravity_gun.tooltip.grab": "ПКМ: захватить моба или блок (дальность 16 блоков)",
+  "item.gravitygun.gravity_gun.tooltip.launch": "ПКМ ещё раз: мощный бросок",
+  "item.gravitygun.gravity_gun.tooltip.drop": "Шифт + ПКМ: аккуратно отпустить"
+}

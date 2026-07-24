@@ -1,0 +1,6 @@
+{
+  "item.gravitygun.gravity_gun": "Gravity Gun",
+  "item.gravitygun.gravity_gun.tooltip.grab": "Right-click: grab a mob or block (16 block range)",
+  "item.gravitygun.gravity_gun.tooltip.launch": "Right-click again: launch it",
+  "item.gravitygun.gravity_gun.tooltip.drop": "Sneak + right-click: set it down gently"
+}

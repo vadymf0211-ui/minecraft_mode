@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "gravitygun",
+  "version": "${version}",
+  "name": "Gravity Gun",
+  "description": "A physics-bending gravity gun: grab mobs and blocks, hold them in mid-air and hurl them with devastating force.",
+  "authors": [
+    "vadymf0211-ui"
+  ],
+  "contact": {
+    "homepage": "https://github.com/vadymf0211-ui/minecraft_mode",
+    "sources": "https://github.com/vadymf0211-ui/minecraft_mode"
+  },
+  "license": "MIT",
+  "icon": "assets/gravitygun/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.vadym.gravitygun.GravityGunMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=1.21 <1.21.2",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

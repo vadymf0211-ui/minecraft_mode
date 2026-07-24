@@ -1,0 +1,114 @@
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
+
+buildscript {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath "net.fabricmc:fabric-loom:${loom_version}"
+    }
+}
+
+apply plugin: 'fabric-loom'
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    // Loom adds Fabric's and Mojang's repositories automatically.
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+// ---------------------------------------------------------------------------
+// Texture generation.
+//
+// The repository stores all pixel art as plain text (texturegen/*.px) and this
+// task rasterises it into real PNGs at build time, so the repo contains no
+// binary files at all. The generated textures are packed straight into the jar.
+// ---------------------------------------------------------------------------
+def texSourceDir = file('texturegen')
+def texOutDir = layout.buildDirectory.dir('generated/textures').get().asFile
+
+tasks.register('generateTextures') {
+    inputs.dir texSourceDir
+    outputs.dir texOutDir
+    doLast {
+        // palette: "<char> RRGGBBAA" per line, '.' = transparent
+        def palette = [:]
+        new File(texSourceDir, 'palette.px').eachLine { line ->
+            line = line.trim()
+            if (!line || line.startsWith('#')) return
+            def parts = line.split(/\s+/)
+            if (parts[1] == 'transparent') {
+                palette[parts[0]] = 0
+            } else {
+                def hex = parts[1].length() == 6 ? parts[1] + 'ff' : parts[1]
+                long rgba = Long.parseLong(hex, 16)
+                palette[parts[0]] = (int) (((rgba & 0xffL) << 24) | (rgba >>> 8))
+            }
+        }
+
+        // 16x16 item sprite
+        def rows = new File(texSourceDir, 'gravity_gun.px').readLines().findAll { it.trim() }
+        int size = rows.size()
+        def img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB)
+        rows.eachWithIndex { row, y ->
+            row.toCharArray().eachWithIndex { ch, x ->
+                img.setRGB(x, y, (int) palette.getOrDefault(ch.toString(), 0))
+            }
+        }
+        def itemDir = new File(texOutDir, 'assets/gravitygun/textures/item')
+        itemDir.mkdirs()
+        ImageIO.write(img, 'png', new File(itemDir, 'gravity_gun.png'))
+
+        // 128x128 mod icon (nearest-neighbour upscale)
+        int scale = (128).intdiv(size)
+        def icon = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB)
+        for (int y = 0; y < 128; y++) {
+            for (int x = 0; x < 128; x++) {
+                icon.setRGB(x, y, img.getRGB(x.intdiv(scale), y.intdiv(scale)))
+            }
+        }
+        ImageIO.write(icon, 'png', new File(texOutDir, 'assets/gravitygun/icon.png'))
+    }
+}
+
+jar {
+    from(tasks.named('generateTextures'))
+    from('LICENSE') {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
